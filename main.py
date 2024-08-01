@@ -51,3 +51,14 @@ def get_current_time():
     now = datetime.datetime.now(eastern)
     formatted_time = now.strftime("The current time is %I:%M %p EST on %A %B %d, %Y")
     return {"current_time": formatted_time}
+
+def check_birthday() -> str:
+    today = datetime.datetime.now()
+    if today.month == 7 and today.day == 31:
+        return "Happy Birthday!"
+    else:
+        return "Today is not your birthday."
+
+@app.get("/birthday")
+def get_birthday_message():
+    return {"message": check_birthday()}
