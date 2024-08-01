@@ -45,7 +45,7 @@ def test_birthday_true(monkeypatch):
     class MockDateTime:
         @classmethod
         def now(cls):
-            return datetime.datetime(2023, 7, 31)
+            return datetime.datetime(2023, 8, 1)
     
     monkeypatch.setattr(datetime, 'datetime', MockDateTime)
     response = requests.get(f"{BASE_URL}/birthday")
@@ -56,7 +56,7 @@ def test_birthday_false(monkeypatch):
     class MockDateTime:
         @classmethod
         def now(cls):
-            return datetime.datetime(2023, 8, 1)
+            return datetime.datetime(2023, 7, 31)
     
     monkeypatch.setattr(datetime, 'datetime', MockDateTime)
     response = requests.get(f"{BASE_URL}/birthday")

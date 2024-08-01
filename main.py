@@ -54,7 +54,7 @@ def get_current_time():
 
 def check_birthday() -> str:
     today = datetime.datetime.now()
-    if today.month == 7 and today.day == 31:
+    if today.month == 8 and today.day == 1:
         return "Happy Birthday!"
     else:
         return "Today is not your birthday."
