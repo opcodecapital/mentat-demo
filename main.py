@@ -1,3 +1,5 @@
+import datetime
+import pytz
 from typing import Union
 
 from fastapi import FastAPI
@@ -13,3 +15,28 @@ def read_root():
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
+
+
+@app.get("/hello/{name}")
+def greet_name(name: str):
+    return {"message": f"Hello, {name}"}
+
+
+@app.get("/day")
+def get_day():
+    day_of_week = datetime.datetime.now().strftime("%A")
+    return {"day": day_of_week}
+
+
+@app.get("/day-of-month")
+def get_day_of_month():
+    day_of_month = datetime.datetime.now().day
+    return {"day_of_month": day_of_month}
+
+@app.get("/current-time")
+def get_current_time():
+    eastern = pytz.timezone('US/Eastern')
+    now = datetime.datetime.now(eastern)
+    formatted_time = now.strftime("The current time is %I:%M %p EST on %A %B %d, %Y")
+    return {"current_time": formatted_time}
+

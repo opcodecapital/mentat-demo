@@ -1,0 +1,36 @@
+import requests
+
+BASE_URL = "http://127.0.0.1:8000"  # Assuming the FastAPI server runs on this URL
+
+def test_read_root():
+    response = requests.get(f"{BASE_URL}/")
+    assert response.status_code == 200
+    assert response.json() == {"Hello": "World"}
+
+def test_read_item():
+    item_id = 1
+    query = "test"
+    response = requests.get(f"{BASE_URL}/items/{item_id}?q={query}")
+    assert response.status_code == 200
+    assert response.json() == {"item_id": item_id, "q": query}
+
+def test_greet_name():
+    name = "John"
+    response = requests.get(f"{BASE_URL}/hello/{name}")
+    assert response.status_code == 200
+    assert response.json() == {"message": f"Hello, {name}"}
+
+def test_get_day():
+    response = requests.get(f"{BASE_URL}/day")
+    assert response.status_code == 200
+    assert "day" in response.json()
+
+def test_get_day_of_month():
+    response = requests.get(f"{BASE_URL}/day-of-month")
+    assert response.status_code == 200
+    assert "day_of_month" in response.json()
+
+def test_get_current_time():
+    response = requests.get(f"{BASE_URL}/current-time")
+    assert response.status_code == 200
+    assert "current_time" in response.json()
