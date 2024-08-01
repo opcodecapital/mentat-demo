@@ -40,3 +40,25 @@ def test_get_prime_count():
     response = requests.get(f"{BASE_URL}/primes/{n}")
     assert response.status_code == 200
     assert response.json() == {"prime_count": 4}  # There are 4 primes less than 10: 2, 3, 5, 7
+
+def test_birthday_true(monkeypatch):
+    class MockDateTime:
+        @classmethod
+        def now(cls):
+            return datetime.datetime(2023, 8, 1)
+    
+    monkeypatch.setattr(datetime, 'datetime', MockDateTime)
+    response = requests.get(f"{BASE_URL}/birthday")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Happy Birthday!"}
+
+def test_birthday_false(monkeypatch):
+    class MockDateTime:
+        @classmethod
+        def now(cls):
+            return datetime.datetime(2023, 7, 31)
+    
+    monkeypatch.setattr(datetime, 'datetime', MockDateTime)
+    response = requests.get(f"{BASE_URL}/birthday")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Today is not your birthday."}
