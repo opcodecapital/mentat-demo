@@ -34,3 +34,9 @@ def test_get_current_time():
     response = requests.get(f"{BASE_URL}/current-time")
     assert response.status_code == 200
     assert "current_time" in response.json()
+
+def test_get_prime_count():
+    n = 10
+    response = requests.get(f"{BASE_URL}/primes/{n}")
+    assert response.status_code == 200
+    assert response.json() == {"prime_count": 4}  # There are 4 primes less than 10: 2, 3, 5, 7
